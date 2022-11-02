@@ -1,0 +1,24 @@
+{
+  "namespace": "avro.example.entity",
+  "type": "record",
+  "name": "PessoaAvro",
+  "fields": [
+    {
+      "name": "nome",
+      "type": "string",
+      "avro.java.string": "String",
+      "doc": "Nome da Pessoa"
+    },
+	{
+      "name": "sobrenome",
+      "type": "string",
+      "avro.java.string": "String",
+      "doc": "Sobrenome da Pessoa"
+    },
+    {
+      "name": "idade",
+      "type": "int",
+      "doc": "Idade da Pessoa"
+    }
+  ]
+}

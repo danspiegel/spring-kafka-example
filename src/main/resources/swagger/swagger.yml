@@ -1,0 +1,75 @@
+swagger: "2.0"
+info:
+  description: "API para postagem da mensagem no tópico do Kafka"
+  version: 4.0.0
+  title: "API para postagem da mensagem no tópico do Kafka"
+host: "sboot-kafka-api"
+basePath: "/v1"
+schemes:
+  - "https"
+
+paths:
+  /kafka/postar-mensagem:
+    post:
+      tags:
+        - "sboot-kafka-api"
+      operationId: "postMessage"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Objeto do Jogador"
+          required: true
+          schema:
+            $ref: "#/definitions/PessoaRequest"
+      responses:
+        "201":
+          description: "Created"
+          schema:
+            $ref: "#/definitions/StandardSuccess"
+        "400":
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/StandardError"
+        "401":
+          description: "Unauthorized"
+        "404":
+          description: "Not Found"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/StandardError"
+
+definitions:
+
+  StandardError:
+    type: "object"
+    properties:
+      timestamp:
+        type: "integer"
+        format: "int64"
+      status:
+        type: "integer"
+      error:
+        type: "string"
+      message:
+        type: "string"
+
+  StandardSuccess:
+    type: "object"
+    properties:
+      status:
+        type: "integer"
+      message:
+        type: "string"
+
+  PessoaRequest:
+    type: "object"
+    properties:
+      nome:
+        type: "string"
+      sobrenome:
+        type: "string"
+      idade:
+        type: "integer"

@@ -1,0 +1,64 @@
+spring:
+  application:
+    name: sboot-campeonato-cbf
+    description: API de gerenciamento da CBF
+  main:
+    banner-mode: "off"
+    allow-bean-definition-overriding: true
+  beaninfo:
+    ignore: true
+server:
+  address: 0.0.0.0
+  port: 8080
+  servlet:
+    session:
+      cookie:
+        http-only: true
+        secure: true
+  error:
+    whitelabel:
+      enabled: false
+
+---
+
+# configurações para desenvolvimento local
+
+spring:
+  profiles:
+    active: local
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  kafka:
+    producer:
+      bootstrap-servers: http://localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      group-id: teste.producer.v1
+    consumer:
+      bootstrap-servers: http://localhost:9092
+      group-id: teste.consumer.v1
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+topic:
+  name:
+    producer: topic.producer
+    consumer: topic.consumer
+
+deal:
+  general:
+    topic:
+      name:
+        dlq: topic.teste.dlq
+  topic:
+    retry:
+      interval: 1
+    max:
+      attempts: 1
+
+auto:
+  create:
+    topics:
+      enable: true
